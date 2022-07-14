@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  followers: 1
+  genres: MyText
+  image: MyString
+  name: MyString
+  popularity: 1
+
+two:
+  followers: 1
+  genres: MyText
+  image: MyString
+  name: MyString
+  popularity: 1

@@ -46,3 +46,7 @@ group :development do
   # gem "spring"
 end
 
+# Authentication
+gem 'devise'
+gem 'devise-jwt'
+
