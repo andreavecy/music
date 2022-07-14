@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tracks
   resources :albums
   resources :artists
   devise_for :users, skip: %i[registrations sessions passwords]
