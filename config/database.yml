@@ -17,8 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: andreavecino
-  password: 9361416
+
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -26,7 +25,8 @@ default: &default
 development:
   <<: *default
   database: music_back_development
-
+  username: andreavecino
+  password: 9361416
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -82,7 +82,4 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: music_back_production
-  username: music_back
-  password: <%= ENV["MUSIC_BACK_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
