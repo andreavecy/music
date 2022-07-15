@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_15_211417) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_15_214402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_211417) do
     t.integer "popularity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "favorite_tracks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "track_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_favorite_tracks_on_track_id"
+    t.index ["user_id"], name: "index_favorite_tracks_on_user_id"
   end
 
   create_table "tracks", force: :cascade do |t|
@@ -69,6 +78,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_211417) do
   end
 
   add_foreign_key "albums", "artists"
+  add_foreign_key "favorite_tracks", "tracks"
+  add_foreign_key "favorite_tracks", "users"
   add_foreign_key "tracks", "albums"
   add_foreign_key "tracks", "artists"
 end

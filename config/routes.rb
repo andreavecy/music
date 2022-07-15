@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :favorite_tracks
+  get '/user_favorites/:user_id', to: 'favorite_tracks#user_favorites'
+  get '/track_user_favorites/:track_id', to: 'favorite_tracks#track_user_favorites'
   resources :tracks
   get '/tracks/artist/:artist_id', to: 'tracks#tracks_artist'
   get '/tracks/album/:album_id', to: 'tracks#tracks_album'
