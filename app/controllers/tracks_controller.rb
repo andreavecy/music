@@ -38,6 +38,18 @@ class TracksController < ApplicationController
     @track.destroy
   end
 
+  # FIND BY ARTIST /tracks/artist/1
+  def tracks_artist
+    @tracks = Track.where(artist_id: params[:artist_id])
+    render json: @tracks
+  end
+
+  # FIND BY ALBUM /tracks/album/1
+  def tracks_album
+    @tracks = Track.where(album_id: params[:album_id])
+    render json: @tracks
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_track
