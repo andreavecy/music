@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/tracks/artist/:artist_id', to: 'tracks#tracks_artist'
   get '/tracks/album/:album_id', to: 'tracks#tracks_album'
   resources :albums
+  get '/albums/artist/:artist_id', to: 'albums#album_artist'
   resources :artists
   devise_for :users, skip: %i[registrations sessions passwords]
   devise_scope :user do

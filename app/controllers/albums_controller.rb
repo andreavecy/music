@@ -38,6 +38,13 @@ class AlbumsController < ApplicationController
     @album.destroy
   end
 
+
+  #Get Albums artist /albums/artist/1
+  def album_artist
+    @albums = Album.where(artist_id: params[:artist_id])
+    render json: @albums
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_album
