@@ -4,7 +4,11 @@ class TracksController < ApplicationController
   # GET /tracks
   def index
     @tracks = Track.all
+    render json: @tracks
+  end
 
+  def search_track
+    @tracks = Track.where("name like ?", "%#{track_params[:q]}%")
     render json: @tracks
   end
 
@@ -58,6 +62,6 @@ class TracksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def track_params
-      params.require(:track).permit(:album_id, :disc_number, :duration_ms, :name, :preview_url, :track_number, :artist_id)
+      params.require(:track).permit(:album_id, :disc_number, :duration_ms, :name, :preview_url, :track_number, :artist_id, :q)
     end
 end

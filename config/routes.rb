@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/user_favorites/:user_id', to: 'favorite_tracks#user_favorites'
   get '/track_user_favorites/:track_id', to: 'favorite_tracks#track_user_favorites'
   resources :tracks
+  post '/search_track', to: 'tracks#search_track'
   get '/tracks/artist/:artist_id', to: 'tracks#tracks_artist'
   get '/tracks/album/:album_id', to: 'tracks#tracks_album'
   resources :albums
