@@ -8,6 +8,11 @@ class AlbumsController < ApplicationController
     render json: @albums
   end
 
+  def search_album
+    @albums = Album.where("name like ?", "%#{album_params[:q]}%")
+    render json: @albums
+  end
+
   # GET /albums/1
   def show
     render json: @album
@@ -53,6 +58,6 @@ class AlbumsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def album_params
-      params.require(:album).permit(:image, :name, :popularity, :release_date, :total_tracks, :genres, :label, :artist_id)
+      params.require(:album).permit(:image, :name, :popularity, :release_date, :total_tracks, :genres, :label, :artist_id, :q)
     end
 end
