@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :follows
   resources :favorite_tracks
   get '/user_favorites/:user_id', to: 'favorite_tracks#user_favorites'
   get '/track_user_favorites/:track_id', to: 'favorite_tracks#track_user_favorites'
@@ -13,8 +14,11 @@ Rails.application.routes.draw do
   devise_scope :user do
     post '/signup', to: 'registrations#create'
     post '/login', to: 'sessions#create'
+    get '/current_user/:id', to: 'sessions#get_user'
     delete '/logout', to: 'sessions#destroy'
   end
+  post '/follow/:id', to: "follows#follow", as: "follow_user"
+  post '/unfollow/:id', to: "follows#unfollow", as: "unfollow_user"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
