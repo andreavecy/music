@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   devise_for :users, skip: %i[registrations sessions passwords]
   devise_scope :user do
     post '/signup', to: 'registrations#create'
+    post '/update/:id', to: 'registrations#update_user'
     post '/login', to: 'sessions#create'
     get '/current_user/:id', to: 'sessions#get_user'
     delete '/logout', to: 'sessions#destroy'

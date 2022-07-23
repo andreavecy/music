@@ -10,6 +10,15 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update_user
+    user = User.find(params[:id])
+    if user.update(sign_up_params)
+      render json: { msg: "usuario actualizado", status: "OK"}
+    else
+      render json: { error: "no se pudo actualizar el usuario"}, status: :unprocessable_entity
+    end
+  end
+
 
 
   private
