@@ -17,6 +17,11 @@ class SessionsController < Devise::SessionsController
     end
   end
 
+  def find_user
+    @users = User.where("name like ?", "%#{params[:q]}%")
+    render json: @users
+  end
+
   private
 
   def respond_with( resource, _opts = {})
