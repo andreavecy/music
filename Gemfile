@@ -50,3 +50,5 @@ end
 gem 'devise'
 gem 'devise-jwt'
 
+
+gem "dockerfile-rails", ">= 1.6", :group => :development

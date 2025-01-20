@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_23_012803) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_20_171338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_23_012803) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "favorite_tracks", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "track_id", null: false
@@ -50,6 +60,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_23_012803) do
   create_table "follows", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "image"
+    t.string "description"
+    t.integer "likes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -86,6 +104,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_23_012803) do
   end
 
   add_foreign_key "albums", "artists"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "favorite_tracks", "tracks"
   add_foreign_key "favorite_tracks", "users"
   add_foreign_key "tracks", "albums"
