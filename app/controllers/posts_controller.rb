@@ -3,8 +3,11 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    posts = Post.all
-    render json: posts, include: :comments
+    posts = Post.includes(:comments, :user).all
+    render json: posts, include: {
+      comments: {},
+      user: { only: [:id, :name, :image] }
+    }
   end
 
   # GET /posts/:id
