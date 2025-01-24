@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    posts = Post.includes(:comments, :user).all
+    posts = Post.includes(:comments, :user).all.order(created_at: :desc)
     render json: posts, include: {
       comments: {},
       user: { only: [:id, :name, :image] }
