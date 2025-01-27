@@ -3,12 +3,21 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    posts = Post.includes(:comments, :user).all.order(created_at: :desc)
+    posts = Post.includes(:comments, :user)
+                .order(created_at: :desc)
+                .page(params[:page])
+                .per(params[:per_page] || 10)
+
     render json: posts, include: {
       comments: {},
       user: { only: [:id, :name, :image] }
+    }, meta: {
+      total_pages: posts.total_pages,
+      current_page: posts.current_page,
+      total_count: posts.total_count
     }
   end
+
 
   # GET /posts/:id
   def show
