@@ -1,28 +1,35 @@
 class FollowsController < ApplicationController
-  before_action :set_follow, only: %i[ show update destroy ]
+  before_action :set_followee, only: [:follow, :unfollow]
 
+  # Acción para seguir a un usuario
   def follow
-    @user = User.find(params[:followee_id])
-    current_user = User.find(params[:id])
-    current_user.followees << @user
-    render json: {msg: "seguiste al usuario #{@user.name}"}
+    current_user = User.find(params[:id]) # Usuario autenticado o enviado
+    if current_user.followees.include?(@followee)
+      render json: { msg: "Ya sigues a este usuario" }, status: :unprocessable_entity
+    else
+      current_user.followees << @followee
+      render json: { msg: "Has seguido al usuario #{@followee.name}" }, status: :ok
+    end
   end
 
+  # Acción para dejar de seguir a un usuario
   def unfollow
-    @user = User.find(params[:followee_id])
-    current_user = User.find(params[:id])
-    current_user.followed_users.find_by(followee_id: @user.id).destroy
-    render json: {msg: "dejaste de seguir al usuario #{@user.name}"}
+    current_user = User.find(params[:id]) # Usuario autenticado o enviado
+    follow = Follow.find_by(follower: current_user, followee: @followee)
+
+    if follow
+      follow.destroy
+      render json: { msg: "Has dejado de seguir al usuario #{@followee.name}" }, status: :ok
+    else
+      render json: { msg: "No estás siguiendo a este usuario" }, status: :not_found
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_follow
-      @follow = Follow.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def follow_params
-      params.permit(:follower_id, :followee_id)
-    end
+  # Encuentra al usuario a seguir/dejar de seguir
+  def set_followee
+    @followee = User.find_by(id: params[:followee_id])
+    render json: { msg: "El usuario no existe" }, status: :not_found unless @followee
+  end
 end
