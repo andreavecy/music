@@ -3,8 +3,15 @@ class SessionsController < Devise::SessionsController
 
   def get_user
     user = User.includes(:followees, :followers).find(params[:id])
-    render json: user
+    render json: user.as_json(
+      include: {
+        followees: { only: [:id, :name, :email] },
+        followers: { only: [:id, :name, :email] }
+      },
+      except: [:created_at, :updated_at, :jti]
+    )
   end
+
 
   def create
     user = User.find_by_email(sign_in_params[:email])

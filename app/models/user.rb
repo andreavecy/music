@@ -13,4 +13,14 @@ class User < ApplicationRecord
   has_many :followers, through: :following_users
   has_many :comments, dependent: :destroy
   has_many :posts, dependent: :destroy
+
+  def as_json(options = {})
+    super(options.merge(
+      include: {
+        followees: { only: [:id, :name, :email] },  # Incluye los usuarios seguidos
+        followers: { only: [:id, :name, :email] }  # Incluye los seguidores
+      },
+      except: [:created_at, :updated_at, :jti]     # Excluye campos innecesarios
+    ))
+  end
 end
