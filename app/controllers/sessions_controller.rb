@@ -2,7 +2,7 @@ class SessionsController < Devise::SessionsController
   respond_to :json
 
   def get_user
-    user = User.find(params[:id])
+    user = User.includes(:followees, :followers).find(params[:id])
     render json: user
   end
 
