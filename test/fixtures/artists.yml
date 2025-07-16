@@ -2,14 +2,14 @@
 
 one:
   followers: 1
-  genres: MyText
+  genres: ["Rock", "Pop"]
   image: MyString
   name: MyString
   popularity: 1
 
 two:
   followers: 1
-  genres: MyText
+  genres: ["Jazz", "Blues"]
   image: MyString
   name: MyString
   popularity: 1
