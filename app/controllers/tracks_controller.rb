@@ -8,7 +8,7 @@ class TracksController < ApplicationController
   end
 
   def search_track
-    @tracks = Track.where("name like ?", "%#{track_params[:q]}%")
+    @tracks = Track.where("name like ?", "%#{params[:q]}%")
     render json: @tracks
   end
 
