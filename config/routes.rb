@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :favorite_tracks
   get '/user_favorites/:user_id', to: 'favorite_tracks#user_favorites'
   get '/track_user_favorites/:track_id', to: 'favorite_tracks#track_user_favorites'
+  delete '/remove_favorite', to: 'favorite_tracks#remove_favorite'
   resources :tracks
   post '/search_track', to: 'tracks#search_track'
   get '/tracks/artist/:artist_id', to: 'tracks#tracks_artist'

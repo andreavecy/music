@@ -278,7 +278,35 @@ Obtiene un favorito específico.
 Actualiza un favorito.
 
 #### DELETE /favorite_tracks/:id
-Elimina una canción de favoritos.
+Elimina una canción de favoritos usando el ID del favorito.
+
+**Parámetros:**
+- `id` (required): ID del registro de favorito
+
+#### DELETE /remove_favorite
+Elimina una canción de favoritos usando el user_id y track_id.
+
+**Body (JSON):**
+```json
+{
+  "user_id": 1,
+  "track_id": 5
+}
+```
+
+**Respuesta exitosa:**
+```json
+{
+  "message": "Favorito eliminado exitosamente"
+}
+```
+
+**Respuesta error (404):**
+```json
+{
+  "error": "Favorito no encontrado"
+}
+```
 
 #### GET /user_favorites/:user_id
 Obtiene las canciones favoritas de un usuario específico.

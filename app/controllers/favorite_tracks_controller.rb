@@ -50,6 +50,17 @@ class FavoriteTracksController < ApplicationController
     render json: @users
   end
 
+  def remove_favorite
+    @favorite_track = FavoriteTrack.find_by(user_id: params[:user_id], track_id: params[:track_id])
+    
+    if @favorite_track
+      @favorite_track.destroy
+      render json: { message: "Favorito eliminado exitosamente" }, status: :ok
+    else
+      render json: { error: "Favorito no encontrado" }, status: :not_found
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_favorite_track
