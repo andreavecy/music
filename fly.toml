@@ -4,7 +4,7 @@
 #
 
 app = 'music'
-primary_region = 'bog'
+primary_region = 'gru'
 console_command = '/rails/bin/rails console'
 
 [build]
